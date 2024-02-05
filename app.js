@@ -24,6 +24,7 @@ app.use('',register)
 app.use('/auth',auth)
 app.get('/',(req,res)=>{
     console.log("Its working");
+    res.send("Its working")
 })
 
 
