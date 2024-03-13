@@ -1,6 +1,7 @@
 const express = require("express")
 const cors = require("cors")
-
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger'); 
 const app = express();
 
 require('dotenv').config();
@@ -9,6 +10,7 @@ require('./db')
 // cors middleware
 app.use(cors('*'));
 app.use(express.static('frontend'))
+app.use('/uploads', express.static('uploads'));
 // bodyparser middleware
 app.use(express.urlencoded({
     extended: false
@@ -16,7 +18,8 @@ app.use(express.urlencoded({
 app.use(express.json({
     limit: "20mb"
 }));
-
+// Serve Swagger UI at /api-docs
+app.use('/echo-craze', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // const auth = require('./routes/auth.route')
 const register = require('./routes/register.route')
 const auth = require('./routes/auth.route')
